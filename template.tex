@@ -1,0 +1,97 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+
+\documentclass[$fontsize$]{article}
+\usepackage{fontspec}
+
+% LAYOUT
+%--------------------------------
+\usepackage{geometry}
+\geometry{$geometry$}
+
+\linespread{1.2}
+
+\setcounter{secnumdepth}{0}
+
+% LANGUAGE
+%--------------------------------
+$if(lang)$
+\usepackage{polyglossia}
+\setmainlanguage{$lang$}
+$endif$
+
+% TYPOGRAPHY
+%--------------------------------
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage[protrusion=true,final]{microtype}
+
+% converts LaTeX specials (quotes, dashes etc.) to Unicode
+\defaultfontfeatures{Mapping=tex-text}
+\setromanfont [Ligatures={Common}, Numbers={OldStyle}]{$mainfont$}
+\setsansfont[Scale=0.9]{$altfont$}
+\setmonofont[Scale=0.8]{$monofont$}
+
+% Set paragraph break
+\setlength{\parskip}{1em}
+
+% Custom ampersand
+\newcommand{\amper}{{\fontspec[Scale=.95]{$mainfont$}\selectfont\itshape\&}}
+
+$if(mainfont)$ \setmainfont{$mainfont$} $endif$
+$if(altfont)$ \setsansfont{$altfont$} $endif$
+
+% Command required by how Pandoc handles the list conversion
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% PDF SETUP
+%--------------------------------
+\usepackage[xetex, bookmarks, colorlinks, breaklinks]{hyperref}
+\hypersetup
+{
+  pdfauthor={$author$},
+  pdfsubject={$title$},
+  pdftitle={$title$},
+  colorlinks,breaklinks,
+  filecolor=black,
+  urlcolor=[rgb]{0.117,0.682,0.858},
+  linkcolor=[rgb]{0.117,0.682,0.858},
+  linkcolor=[rgb]{0.117,0.682,0.858},
+  citecolor=[rgb]{0.117,0.682,0.858}
+}
+
+% DOCUMENT
+%--------------------------------
+\begin{document}
+
+$if(title)$
+\begin{titlepage}
+    \begin{center}
+
+        \vspace*{5em}
+
+        \linespread{1.0}
+                {\Huge\bfseries $title$\par}
+
+        \vspace*{5em}
+
+
+        {\large 
+        $if(author)$$author$$endif$
+
+        $if(customdate)$$customdate$$else$\today$endif$}\\[3cm] 
+
+    \end{center}
+\end{titlepage}
+$endif$
+
+$if(table-of-contents)$
+\tableofcontents
+\newpage
+$endif$
+
+$body$
+
+
+\end{document}
